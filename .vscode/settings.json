@@ -1,0 +1,9 @@
+{
+    "yaml.schemas": {
+        "kubernetes": "*.yaml",
+        "https://www.schemastore.org/helmfile.json": [
+            "file:///f%3A/DevOpsWithNana/online-shop-microservice/email-service-values.yaml",
+            "file:///f%3A/DevOpsWithNana/online-shop-microservice/values/cart-service-values.yaml"
+        ]
+    }
+}
