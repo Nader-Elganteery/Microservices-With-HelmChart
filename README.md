@@ -36,7 +36,8 @@ The application consists of the following microservices:
 
 - Kubernetes cluster (GKE, Minikube, Kind, or any other)
 - `kubectl` configured to communicate with your cluster
-- Helm 3.x installed
+- Helm installed
+- helmfile installed
 
 ## Installation
 
@@ -51,10 +52,7 @@ cd Microservices-With-HelmChart
 
 ```bash
 # Install the chart
-helm install online-boutique ./helm-chart
-
-# Or with a custom release name
-helm install my-shop ./helm-chart
+helmfile sync
 ```
 
 ### 3. Verify Deployment
@@ -70,18 +68,16 @@ kubectl get services
 ### 4. Access the Application
 
 ```bash
-# Get the frontend external IP
-kubectl get service frontend-external
-
-# Access the application at http://<EXTERNAL-IP>
+# Get the frontend 
+kubectl port-forward deployment/frontend 4450:8080
 ```
 
 ## Configuration
 
-You can customize the deployment by modifying the `values.yaml` file or by providing your own values during installation:
+You can customize the deployment by modifying the `values.yaml` file or by providing your own values during installation or deploy one service:
 
 ```bash
-helm install online-boutique ./helm-chart -f my-values.yaml
+helm install -f values/email-service-values.yaml emailservice  charts/microservice
 ```
 
 ## Uninstallation
@@ -89,7 +85,7 @@ helm install online-boutique ./helm-chart -f my-values.yaml
 To remove the application:
 
 ```bash
-helm uninstall online-boutique
+helmfile destroy
 ```
 
 ## Advantages of Using Helm
@@ -107,7 +103,3 @@ This project is based on the [Google Cloud Platform Microservices Demo](https://
 ## License
 
 This project follows the same license as the original Google Cloud Platform microservices-demo repository.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
